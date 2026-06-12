@@ -21,7 +21,7 @@ const musicasMock = [
 ];
 
 export default function ListaScreen({route}) {
-  const [itensSalvos, setItensSalvos] = useState(true);
+  const [itensSalvos, setItensSalvos] = useState(musicasMock);
 
   useEffect(() => {
     if (route.params?.novaMusica) {
