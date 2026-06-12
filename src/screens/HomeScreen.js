@@ -1,14 +1,6 @@
-// TODO: importar useState e useEffect — adicione a linha abaixo no topo:
-// import { useState, useEffect } from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+// NOME:  Emanuely Macedo Padovan
+import { useState, useEffect } from 'react';
+import { FlatList, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const musicas = [
   {
@@ -67,28 +59,23 @@ const musicas = [
   },
 ];
 
-// TODO: adicionar { navigation } como parametro quando a navegacao estiver configurada
-export default function HomeScreen() {
-  // TODO: estado para o texto digitado na busca
-  // const [busca, setBusca] = useState('');
+export default function HomeScreen({navigation}) {
+  const [busca, setBusca] = useState('');
 
-  // TODO: estado com as musicas exibidas na lista — inicia com todas
-  // const [musicasFiltradas, setMusicasFiltradas] = useState(musicas);
+  const [musicasFiltradas, setMusicasFiltradas] = useState(musicas);
 
-  // TODO: filtrar as musicas sempre que o valor de 'busca' mudar
-  // useEffect(() => {
-  //   const resultado = musicas.filter((musica) =>
-  //     musica.titulo.toLowerCase().includes(busca.toLowerCase())
-  //   );
-  //   setMusicasFiltradas(resultado);
-  // }, [busca]);
+  useEffect(() => {
+    const resultado = musicas.filter((musica) =>
+      musica.titulo.toLowerCase().includes(busca.toLowerCase())
+    );
+    setMusicasFiltradas(resultado);
+  }, [busca]);
 
   function renderItem({ item }) {
     return (
       <TouchableOpacity
         style={styles.card}
-        // TODO: implementar onPress com navigation.navigate passando os dados da musica
-        // onPress={() => navigation.navigate('Detalhe', { ...item })}
+        onPress={() => navigation.navigate('Detalhe', { ...item })}
       >
         <View style={styles.cardIcone}>
           <Text style={styles.cardIconeTexto}>{item.titulo[0]}</Text>
@@ -113,20 +100,18 @@ export default function HomeScreen() {
         </Text>
       </View>
 
-      {/* Campo de busca — TODO: adicionar value={busca} e onChangeText={setBusca} */}
       <View style={styles.buscaContainer}>
         <TextInput
           style={styles.buscaInput}
           placeholder="Buscar musica..."
           placeholderTextColor="#6B6B6B"
-          // value={busca}
-          // onChangeText={setBusca}
+          value={busca}
+          onChangeText={setBusca}
         />
       </View>
 
-      {/* TODO: trocar data={musicas} por data={musicasFiltradas} apos implementar o estado */}
       <FlatList
-        data={musicas}
+        data={musicasFiltradas}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={styles.lista}

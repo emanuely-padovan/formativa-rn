@@ -1,32 +1,20 @@
-// TODO: importar useState — adicione a linha abaixo no topo:
-// import { useState } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+// NOME:  Emanuely Macedo Padovan
+import { useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-// Dados de fallback — usados enquanto a navegacao nao estiver configurada
 const musicaMock = {
   titulo: "Bohemian Rhapsody",
   genero: "Rock / Opera",
   plataforma: "Spotify / Apple Music",
   nota: "10/10",
   sinopse:
-    "Uma das composicoes mais iconicas do rock. Queen criou uma obra atemporal que mistura balada, opera e hard rock em uma unica faixa de seis minutos.",
+  "Uma das composicoes mais iconicas do rock. Queen criou uma obra atemporal que mistura balada, opera e hard rock em uma unica faixa de seis minutos.",
 };
 
-// TODO: adicionar { route, navigation } como parametros quando a navegacao estiver configurada
-// Os dados chegam via route.params quando o usuario toca em uma musica na HomeScreen
-export default function DetalheScreen() {
-  // Defina os parametros de rota, pegando todos os campos presentes no objeto musicas definido na HomeScreen
-  // const { passar parametros das musicas: plataforma, nota etc... } = route?.params ?? musicaMock;
+export default function DetalheScreen({route, navigation}) {
+  const {titulo, genero, plataforma, nota, sinopse} = route?.params ?? musicaMock
 
-  // TODO: estado booleano para controlar se a musica foi salva na lista
-  // const [isSalvo, setIsSalvo] = useState(false);
+  const [isSalvo, setIsSalvo] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,12 +43,10 @@ export default function DetalheScreen() {
           <Text style={styles.detalheTexto}>{sinopse}</Text>
         </View>
 
-        {/* TODO: quando implementar o estado isSalvo, use:
-            onPress={() => setIsSalvo(prev => !prev)}
-            style={[styles.botao, isSalvo && styles.botaoAtivo]}
-            texto: isSalvo ? 'Remover da Lista' : 'Adicionar a Lista' */}
-        <TouchableOpacity style={styles.botao}>
-          <Text style={styles.botaoTexto}>Adicionar a Lista</Text>
+        <TouchableOpacity 
+        style={[styles.botao, isSalvo && styles.botaoAtivo]} 
+        onPress={() => setIsSalvo(prev => !prev)}>
+          <Text style={styles.botaoTexto}>{isSalvo ? 'Remover da Lista' : 'Adicionar a Lista'}</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
